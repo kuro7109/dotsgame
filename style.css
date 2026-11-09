@@ -1,0 +1,357 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --accent: #ffffff;
+    --snake: #ffffff;
+    --food: #ffffff;
+    --grid: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.game-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Header Section - Clean & Minimal */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+}
+
+.stats {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+}
+
+.stat-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    min-width: 3ch;
+    text-align: right;
+}
+
+/* Main Game Area */
+.game-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    padding: 3rem 4rem;
+    position: relative;
+}
+
+.game-canvas-wrapper {
+    position: relative;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+}
+
+/* Side Controls */
+.side-controls-left,
+.side-controls-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 120px;
+}
+
+.side-controls-left {
+    align-items: flex-end;
+}
+
+.side-controls-right {
+    align-items: flex-start;
+}
+
+canvas {
+    display: block;
+    background: var(--bg-secondary);
+}
+
+/* Overlay Messages - Subtle & Elegant */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.95);
+    z-index: 10;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.game-overlay.active {
+    display: flex;
+}
+
+.overlay-title {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+}
+
+.overlay-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    font-weight: 400;
+}
+
+.game-over-stats {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.game-over-stats p {
+    font-size: 1rem;
+    margin: 0.75rem 0;
+    font-weight: 300;
+    color: var(--text-secondary);
+}
+
+.game-over-stats strong {
+    color: var(--text-primary);
+    font-weight: 400;
+    margin-left: 1rem;
+}
+
+/* Bottom Controls Section */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+}
+
+.controls-left {
+    display: none;
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+    background: transparent;
+    border-color: var(--border);
+}
+
+.difficulty-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.difficulty-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.difficulty-option {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+.difficulty-option.active {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--accent);
+}
+
+.difficulty-option:hover:not(.active) {
+    color: var(--text-primary);
+}
+
+.difficulty-option:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.difficulty-option:disabled:hover {
+    color: var(--text-secondary);
+}
+
+/* Keyboard Hints - Minimal */
+.keyboard-hints {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0.4;
+}
+
+.key-hint {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+/* High Score Animation - Subtle */
+@keyframes scoreChange {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.score-change {
+    animation: scoreChange 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .game-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .side-controls-left,
+    .side-controls-right {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .side-controls-left {
+        order: 2;
+    }
+
+    .side-controls-right {
+        order: 3;
+    }
+
+    .game-canvas-wrapper {
+        order: 1;
+    }
+}
+
+@media (max-width: 1024px) {
+    .header {
+        padding: 1.5rem 2rem;
+    }
+
+    .stats {
+        gap: 2rem;
+    }
+
+    .controls {
+        padding: 1.5rem 2rem;
+    }
+
+    .game-container {
+        padding: 2rem;
+    }
+
+    .difficulty-selector {
+        flex-direction: row;
+    }
+}
+
+/* Focus States - Accessibility */
+.btn:focus-visible,
+.difficulty-option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Hide when playing */
+.hidden {
+    display: none !important;
+}
